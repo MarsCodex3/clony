@@ -1,0 +1,20 @@
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Invoice {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Float
+  status      String   @default("pending") // pending, paid, cancelled
+  clientEmail String
+  description String?
+  paymentLink String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
